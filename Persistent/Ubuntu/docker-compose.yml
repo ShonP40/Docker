@@ -1,0 +1,58 @@
+version: "3.9"
+services:
+  ubuntu:
+    image: ubuntu:22.04
+    container_name: Ubuntu
+    network_mode: host
+    restart: unless-stopped
+    entrypoint: /bin/bash
+    tty: true
+    stdin_open: true
+    privileged: true
+    volumes:
+      - /dev:/dev # Hardware access
+      - /var/run/docker.sock:/var/run/docker.sock # Docker access
+      # Persistent storage
+      - ubuntu-bin:/bin
+      - ubuntu-etc:/etc
+      - ubuntu-home:/home
+      - ubuntu-lib:/lib
+      - ubuntu-lib32:/lib32
+      - ubuntu-lib64:/lib64
+      - ubuntu-libx32:/libx32
+      - ubuntu-opt:/opt
+      - ubuntu-root:/root
+      - ubuntu-sbin:/sbin
+      - ubuntu-srv:/srv
+      - ubuntu-usr:/usr
+      - ubuntu-var:/var
+    device_cgroup_rules: # Hardware access
+      - c 188:* rmw
+
+volumes: # Persistent storage
+  ubuntu-bin:
+    name: ubuntu-bin
+  ubuntu-etc:
+    name: ubuntu-etc
+  ubuntu-home:
+    name: ubuntu-home
+  ubuntu-lib:
+    name: ubuntu-lib
+  ubuntu-lib32:
+    name: ubuntu-lib32
+  ubuntu-lib64:
+    name: ubuntu-lib64
+  ubuntu-libx32:
+    name: ubuntu-libx32
+  ubuntu-opt:
+    name: ubuntu-opt
+  ubuntu-root:
+    name: ubuntu-root
+  ubuntu-sbin:
+    name: ubuntu-sbin
+  ubuntu-srv:
+    name: ubuntu-srv
+  ubuntu-usr:
+    name: ubuntu-usr
+  ubuntu-var:
+    name: ubuntu-var
